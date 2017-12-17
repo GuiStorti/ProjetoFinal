@@ -30,10 +30,8 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	private Vendedor vendedor;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Item_Pedido", joinColumns = { @JoinColumn(name = "pedido_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "produto_id") })
-	private List<Produto> produtos = new ArrayList<Produto>();
+	@OneToMany(mappedBy="pedido")
+	private List<ProdutoPedido> produtos_pedido = new ArrayList<ProdutoPedido>();
 
 	public Pedido(long codigo) {
 		super();
@@ -51,17 +49,13 @@ public class Pedido implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+
+	public List<ProdutoPedido> getProdutos_pedido() {
+		return produtos_pedido;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
-
-	public void addProduto(Produto produto) {
-		produtos.add(produto);
-
+	public void setProdutos_pedido(List<ProdutoPedido> produtos_pedido) {
+		this.produtos_pedido = produtos_pedido;
 	}
 
 	public Cliente getCliente() {
@@ -84,6 +78,10 @@ public class Pedido implements Serializable {
 		return serialVersionUID;
 	}
 
+	public void addProdutoPedido(ProdutoPedido produtoPedido) {
+		produtos_pedido.add(produtoPedido);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

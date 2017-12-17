@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto implements Serializable{
@@ -22,14 +23,14 @@ public class Produto implements Serializable{
 	private String descricao;
 	private double valor;
 	
-	@ManyToMany (mappedBy="produtos", cascade=CascadeType.ALL)
-	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	@OneToMany (mappedBy="produto", cascade=CascadeType.ALL)
+	private List<ProdutoPedido> produtos_pedido = new ArrayList<ProdutoPedido>();
 	
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<ProdutoPedido> getProdutos_pedido() {
+		return produtos_pedido;
 	}
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setProdutos_pedido(List<ProdutoPedido> produtos_pedido) {
+		this.produtos_pedido = produtos_pedido;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -51,6 +52,10 @@ public class Produto implements Serializable{
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+	
+	public void addProdutoPedido(ProdutoPedido produtoPedido) {
+		produtos_pedido.add(produtoPedido);
 	}
 	
 	@Override
