@@ -75,10 +75,10 @@
 				selection="#{pedidoManagedBean.pedidoSelecionado}"
 				rowKey="#{p.codigo}">
 
-				<p:ajax event="rowSelect" update=":formTableProdutos" />
-				<p:ajax event="rowUnselect" update=":formTableProdutos" />
+				<p:ajax event="rowSelect" update=":formTablePedidos" />
+				<p:ajax event="rowUnselect" update=":formTablePedidos" />
 				<p:ajax event="rowEdit" listener="#{pedidoManagedBean.onRowEdit}"
-					update=":formTableProdutos" />
+					update=":formTablePedidos" />
 
 				<p:column headerText="#{msg['pages.cadastroPedido.codigo']}">
 					<h:outputText value="#{p.codigo}" />
