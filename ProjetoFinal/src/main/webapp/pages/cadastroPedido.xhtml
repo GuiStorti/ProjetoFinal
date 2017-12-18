@@ -38,8 +38,8 @@
 
 				<p:outputLabel
 					value="#{msg['pages.cadastroPedido.produto.msgcliente']}" />
-				<p:selectOneMenu value="nomeCli">
-					<f:selectItem itemValue="nomeCli" itemLabel="Selecione" />
+				<p:selectOneMenu value="#{clienteManagedBean.cliente}" converter="converterCliente">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
 					<f:selectItems value="#{clienteManagedBean.clientes}" var="aux"
 						itemValue="#{aux}" itemLabel="#{aux.nome}" />
 				</p:selectOneMenu>
