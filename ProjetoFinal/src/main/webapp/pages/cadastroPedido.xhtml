@@ -24,43 +24,45 @@
 			<p:panelGrid columns="2">
 				<p:outputLabel value="#{msg['pages.cadastroPedido.codigo']}" />
 				<p:inputText value="#{pedidoManagedBean.pedido.codigo}" />
-			
-						
-			
-			<p:outputLabel
-				value="#{msg['pages.cadastroPedido.produto.msgcliente']}" />
-			<p:selectOneMenu value="#{pedidoManagedBean.cliente}" converter="converterCliente">
-				<f:selectItem itemValue="" itemLabel="Selecione" />
-				<f:selectItems value="#{pedidoManagedBean.clientes}" var="aux"
-				itemValue="#{aux}" itemLabel="#{aux.nome}" />			
-			</p:selectOneMenu>
-			
-			
-			<p:outputLabel
-				value="#{msg['pages.cadastroPedido.produto.msgvendedor']}" />
-			<p:selectOneMenu value="#{pedidoManagedBean.vendedor}" converter="converterVendedor">
-				<f:selectItem itemValue="" itemLabel="Selecione" />
-				<f:selectItems value="#{pedidoManagedBean.vendedor}" var="aux"
-				itemValue="#{aux}" itemLabel="#{aux.nome}" />			
-			</p:selectOneMenu>
-			
-			<p:outputLabel
-				value="#{msg['pages.cadastroPedido.produto.msgprod']}" />
-			<p:selectOneMenu value= "#{pedidoManagedBean.produtos}">
-				<f:selectItem itemValue="#{pedidoManagedBean.produtos}"
-					itemLabel="Selecione" />
-				<f:selectItems value="#{produtoManagedBean.produtos}" var="aux"
-				itemValue="#{aux}" itemLabel="#{aux.descricao}" />
-			</p:selectOneMenu>
-			
-			
-			
+
+
+
+				<p:outputLabel
+					value="#{msg['pages.cadastroPedido.produto.msgprod']}" />
+				<p:selectOneMenu value="nomeProd">
+					<f:selectItem itemValue="nomeProd" itemLabel="Selecione" />
+					<f:selectItems value="#{produtoManagedBean.produtos}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.descricao}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel
+					value="#{msg['pages.cadastroPedido.produto.msgcliente']}" />
+				<p:selectOneMenu value="nomeCli">
+					<f:selectItem itemValue="nomeCli" itemLabel="Selecione" />
+					<f:selectItems value="#{clienteManagedBean.clientes}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel
+					value="#{msg['pages.cadastroPedido.produto.msgvendedor']}" />
+				<p:selectOneMenu value="nomeVend">
+					<f:selectItem itemValue="nomeVend" itemLabel="Selecione" />
+					<f:selectItems value="#{vendedorManagedBean.vendedores}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+
 			</p:panelGrid>
-				
+
+			<p:commandButton value="#{msg['pages.comuns.form.btnAdicionar']}"
+				update=":formTableProdutos"
+				action="#{produtoPedidoManagedBean.salvar}" />
+
 			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}"
 				update=":formPedidos, :formTablePedidos"
 				action="#{pedidoManagedBean.salvar}" />
-			
+
 		</h:form>
 
 		<h3>
@@ -70,81 +72,59 @@
 
 			<p:growl id="growl" showDetail="true" />
 
-			<p:dataTable value="#{pedidoManagedBean.pedidos}" var="p"
+			<p:dataTable value="#{pedidoManagedBean.pedidos}" var="ped"
 				editable="true" id="tableProdutos" selectionMode="single"
 				selection="#{pedidoManagedBean.pedidoSelecionado}"
-				rowKey="#{p.codigo}">
+				rowKey="#{ped.codigo}">
 
-				<p:ajax event="rowSelect" update=":formTablePedidos" />
-				<p:ajax event="rowUnselect" update=":formTablePedidos" />
+				<p:ajax event="rowSelect" update=":formTableProdutos" />
+				<p:ajax event="rowUnselect" update=":formTableProdutos" />
 				<p:ajax event="rowEdit" listener="#{pedidoManagedBean.onRowEdit}"
-					update=":formTablePedidos" />
+					update=":formTableProdutos" />
 
 				<p:column headerText="#{msg['pages.cadastroPedido.codigo']}">
-					<h:outputText value="#{p.codigo}" />
+					<h:outputText value="#{ped.codigo}" />
+				</p:column>
+
+				<p:column headerText="#{msg['pages.cadastroProduto.cliente.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.cliente.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ped.cliente}"
+								converter="converterCliente" style="width:100%">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItems value="#{clienteManagedBean.clientes}" var="aux"
+									itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['pages.cadastroProduto.vendedor.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.vendedor.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ped.vendedor}"
+								converter="converterVendedor" style="width:100%">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItems value="#{vendedorManagedBean.vendedores}" var="aux"
+									itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 
-			<p:column headerText="#{msg['pages.cadastroPedido.produto.msgvendedor']}" filterBy="#{p.vendedor.nome}">
-				<p:cellEditor>
-					<f:facet name="output">
-						<p:outputLabel value="#{p.vendedor.nome}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:selectOneMenu value="#{p.nome}"
-							converter="converterVendedor" style="width:100%">
-							<f:selectItem itemValue="" itemLabel="#{msg['pages.cadastroPedido.produto.msgvendedor']}" />
-							<f:selectItems value="#{pedidoManagedBean.vendedor}"
-								var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
-						</p:selectOneMenu>
-
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-
-	<p:column headerText="#{msg['pages.cadastroPedido.produto.msgcliente']}" filterBy="#{p.cliente.nome}">
-				<p:cellEditor>
-					<f:facet name="output">
-						<p:outputLabel value="#{p.cliente.nome}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:selectOneMenu value="#{p.nome}"
-							converter="converterCliente" style="width:100%">
-							<f:selectItem itemValue="" itemLabel="#{msg['pages.cadastroPedido.produto.msgcliente']}" />
-							<f:selectItems value="#{pedidoManagedBean.cliente}"
-								var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
-						</p:selectOneMenu>
-
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-
-			
-			
-			<p:column headerText="#{msg['pages.cadastroPedido.produto']}" filterBy="#{p.produto.descricao}">
-				<p:cellEditor>
-					<f:facet name="output">
-						<p:outputLabel value="#{p.produto.descricao}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:selectOneMenu value="#{p.produto}"
-							converter="converterProduto" style="width:100%">
-							<f:selectItem itemValue="" itemLabel="#{msg['pages.cadastroPedido.produto']}" />
-							<f:selectItems value="#{perguntaProvaManagedBean.produto}"
-								var="aux" itemValue="#{aux}" itemLabel="#{aux.descricao}" />
-						</p:selectOneMenu>
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-				
 				<p:column style="width:70px"
 					headerText="#{msg['pages.commus.form.opcoes']}">
 					<p:rowEditor />
 					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
 						style="text-align:center"
-						actionListener="#{pedidoManagedBean.remove(f)}"
+						actionListener="#{pedidoManagedBean.remove(ped)}"
 						update=":formTablePedidos" />
 				</p:column>
 
@@ -152,7 +132,29 @@
 		</h:form>
 
 		<br />
-		
+		<h:form id="formTableProdutos">
+			<h3>
+				<p:outputLabel
+					value="#{msg['pages.cadastroPedido.produtosPedido']}: #{pedidoManagedBean.pedidoSelecionado.nome}" />
+			</h3>
+			<p:dataTable value="#{pedidoManagedBean.produtosPedido}" var="prod"
+				id="tableProdutos">
+
+				<p:column headerText="#{msg['pages.cadastroPedido.produto.codigo']}">
+					<h:outputText value="#{prod.codigo}" />
+				</p:column>
+
+				<p:column
+					headerText="#{msg['pages.cadastroPedido.produto.descricao']}">
+					<p:outputLabel value="#{prod.descricao}" />
+				</p:column>
+
+				<p:column headerText="#{msg['pages.cadastroPedido.produto.valor']}">
+					<h:outputText value="#{prod.valor}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
 
 	</ui:define>
 </ui:composition>

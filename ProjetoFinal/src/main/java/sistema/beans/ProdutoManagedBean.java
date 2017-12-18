@@ -23,23 +23,32 @@ import sistema.service.ProdutoService;
 public class ProdutoManagedBean {
 	
 	private Produto produto = new Produto();
-	private Produto produtoSelecionada;
+	private Produto produtoSelecionado;
 	private ProdutoService servico = new ProdutoService();
 	private List<Produto> produtos;
 	
 	
 	
+	public ProdutoService getServico() {
+		return servico;
+	}
+	public void setServico(ProdutoService servico) {
+		this.servico = servico;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
 	public Produto getProduto() {
 		return produto;
 	}
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	public Produto getProdutoSelecionada() {
-		return produtoSelecionada;
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
 	}
-	public void setProdutoSelecionada(Produto produtoSelecionada) {
-		this.produtoSelecionada = produtoSelecionada;
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		this.produtoSelecionado = produtoSelecionado;
 	}
 	
 	public void salvar()
@@ -72,9 +81,9 @@ public class ProdutoManagedBean {
 	}
 	
 	public List <ProdutoPedido> getProdutosPedido() {
-		if(produtoSelecionada != null)
+		if(produtoSelecionado != null)
 		{
-			return servico.pesquisarProdutosPedido(produtoSelecionada);
+			return servico.pesquisarProdutosPedido(produtoSelecionado);
 		}
 		else
 			return null;

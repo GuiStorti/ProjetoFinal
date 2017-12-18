@@ -33,9 +33,13 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy="pedido")
 	private List<ProdutoPedido> produtos_pedido = new ArrayList<ProdutoPedido>();
 
-	public Pedido(long codigo) {
+	
+
+	public Pedido(long codigo, Cliente cliente, Vendedor vendedor) {
 		super();
 		this.codigo = codigo;
+		this.cliente = cliente;
+		this.vendedor = vendedor;
 	}
 
 	public Pedido() {

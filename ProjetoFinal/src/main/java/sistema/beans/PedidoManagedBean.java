@@ -95,13 +95,16 @@ public class PedidoManagedBean {
 	}
 	public void salvar()
 	{
+		pedido.setCliente(cliente);
+		pedido.setVendedor(vendedor);
 		servico.salvar(pedido);
 		
 		if(pedidos != null)
 			pedidos.add(pedido);
 		
-		
 		pedido = new Pedido();
+		cliente = null;
+		vendedor = null;
 	}
 	
 	public DataModel<Pedido> getPedidos() {
