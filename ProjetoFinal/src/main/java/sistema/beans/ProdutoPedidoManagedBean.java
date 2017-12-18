@@ -22,18 +22,15 @@ public class ProdutoPedidoManagedBean {
 	private Produto produto;
 	private Pedido pedido;
 	private ProdutoPedidoService servico = new ProdutoPedidoService();
-	private ProdutoService pergServico = new ProdutoService();
-	private PedidoService provServico = new PedidoService();
+	private ProdutoService produtoServico = new ProdutoService();
+	private PedidoService pedidoServico = new PedidoService();
 	private List<ProdutoPedido> produtoPedidos;
 	
 	public void salvar() {
-		produto.addProdutoPedido(produtoPedido);
+
 		produtoPedido.setProduto(produto);
-		
-		pedido.addProdutoPedido(produtoPedido);
 		produtoPedido.setPedido(pedido);
-		
-		produtoPedidos.add(produtoPedido);
+		pedido.addProdutoPedido(produtoPedido);
 		servico.salvar(produtoPedido);
 		
 		produtoPedido = new ProdutoPedido();
@@ -43,11 +40,11 @@ public class ProdutoPedidoManagedBean {
 	}
 	
 	public List <Produto> getProdutos() {
-		return pergServico.getProdutos();
+		return produtoServico.getProdutos();
 	}
 	
 	public List <Pedido> getPedidos() {
-		return provServico.getPedidos();
+		return pedidoServico.getPedidos();
 	}
 
 	public Produto getProduto() {

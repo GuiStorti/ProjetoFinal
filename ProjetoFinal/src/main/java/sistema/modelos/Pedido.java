@@ -23,6 +23,7 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long codigo;
+	private double valorTotal;
 
 	@ManyToOne
 	private Cliente cliente;
@@ -35,11 +36,12 @@ public class Pedido implements Serializable {
 
 	
 
-	public Pedido(long codigo, Cliente cliente, Vendedor vendedor) {
+	public Pedido(long codigo, Cliente cliente, Vendedor vendedor, double valorTotal) {
 		super();
 		this.codigo = codigo;
 		this.cliente = cliente;
 		this.vendedor = vendedor;
+		this.valorTotal = valorTotal;
 	}
 
 	public Pedido() {
@@ -86,6 +88,14 @@ public class Pedido implements Serializable {
 		produtos_pedido.add(produtoPedido);
 	}
 	
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -16,6 +16,7 @@ private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	private int quantidade;
 	
 	@ManyToOne
 	private Produto produto;
@@ -27,9 +28,10 @@ private static final long serialVersionUID = 1L;
 		super();
 	}
 
-	public ProdutoPedido(long id) {
+	public ProdutoPedido(long id, int quantidade) {
 		super();
 		this.id = id;
+		this.quantidade = quantidade;
 	}
 
 	public long getId() {
@@ -54,6 +56,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+	
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@Override

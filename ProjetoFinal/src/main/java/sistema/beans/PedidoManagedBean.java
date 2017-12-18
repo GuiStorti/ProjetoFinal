@@ -97,10 +97,9 @@ public class PedidoManagedBean {
 	{
 		pedido.setCliente(cliente);
 		pedido.setVendedor(vendedor);
+		pedidos.add(pedido);
 		servico.salvar(pedido);
-		
-		if(pedidos != null)
-			pedidos.add(pedido);
+			
 		
 		pedido = new Pedido();
 		cliente = null;
